@@ -2,80 +2,74 @@
 // Counting letter grades.
 #include <iostream>
 
-using std::cout;
-using std::cin;
-using std::endl;
+using namespace std;
 
-// function main begins program execution
-int main()
-{
-   int grade;       // one grade
-   int aCount = 0;  // number of As
-   int bCount = 0;  // number of Bs
-   int cCount = 0;  // number of Cs
-   int dCount = 0;  // number of Ds
-   int fCount = 0;  // number of Fs
+int main(){
+   string input;
+   string Region="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+   int NumRegion[26]={10,11,12,13,14,15,16,17,34,18,19,20,21,22,35,23,24,25,26,27,28,29,32,30,31,33};
 
-   cout << "Enter the letter grades." << endl
-        << "Enter the EOF character to end input." << endl;
+   cin>>input;                                       //輸入和輸出ID
+   cout<<input<<endl;
 
-   // loop until user types end-of-file key sequence
-   while ( ( grade = cin.get() ) != EOF ) {
+   bool Legit=true;
 
-      // determine which grade was input
-      switch ( grade ) {  // switch structure nested in while
+   if(input.length()!=10){                          //檢查ID長度是否正常
+      Legit=false;
+   }
 
-         case 'A':        // grade was uppercase A
-         case 'a':        // or lowercase a
-            ++aCount;     // increment aCount
-            break;        // necessary to exit switch
+   if (int(input[1])!=49 && int(input[1])!=50){     //檢查性別字元是否正常
+      Legit=false;
+   }
 
-         case 'B':        // grade was uppercase B
-         case 'b':        // or lowercase b
-            ++bCount;     // increment bCount    
-            break;        // exit switch
+   if(int(input[0])<65 || int(input[0]>90)){        //檢查縣市字元是否正常
+      Legit=false;
+   }
 
-         case 'C':        // grade was uppercase C
-         case 'c':        // or lowercase c
-            ++cCount;     // increment cCount    
-            break;        // exit switch
+   for(int i=2;i<=8;i++){
+      if(int(input[i])<48 || int(input[i]>57)){      //檢查其他字元是否正常
+         Legit=false;
+         break;
+      }
+   }
 
-         case 'D':        // grade was uppercase D
-         case 'd':        // or lowercase d
-            ++dCount;     // increment dCount    
-            break;        // exit switch
+   if(Legit){
+      
+      int VerifyNum=0,k;                             //計算檢查碼
 
-         case 'F':        // grade was uppercase F
-         case 'f':        // or lowercase f
-            ++fCount;     // increment fCount    
-            break;        // exit switch
+      for(int i=0;i<=25;i++){
+         if(Region[i]==input[0]){
+            k=i;
+            break;
+         }
+      }
 
-         case '\n':       // ignore newlines,  
-         case '\t':       // tabs, 
-         case ' ':        // and spaces in input
-            break;        // exit switch
+      VerifyNum+=NumRegion[k]/10;
+      VerifyNum+=(NumRegion[k]%10)*9;
 
-         default:         // catch all other characters
-            cout << "Incorrect letter grade entered."
-                 << " Enter a new grade." << endl;
-            break;        // optional; will exit switch anyway
+      for(int i=1;i<=8;i++){
+         VerifyNum+=(int(input[i])-48)*(9-i);
+      }
+      VerifyNum=10-(VerifyNum%10);
 
-      } // end switch
+      if(VerifyNum!=int(input[9])-48){             //判斷檢查碼
+         Legit=false;
+      }
 
-   } // end while
+      if(Legit){
+         cout<<"ID is Correct."<<endl;
+      }
+      else{
+         cout<<"ID is Wrong."<<endl;
+      }
+   }
+   else{
+      cout<<"ID is Wrong."<<endl;
+   }
+   
+   
 
-   // output summary of results
-   cout << "\n\nTotals for each letter grade are:" 
-        << "\nA: " << aCount   // display number of A grades
-        << "\nB: " << bCount   // display number of B grades
-        << "\nC: " << cCount   // display number of C grades 
-        << "\nD: " << dCount   // display number of D grades
-        << "\nF: " << fCount   // display number of F grades
-        << endl;
-
-   return 0;  // indicate successful termination
-
-} // end function main
+}
 
 
 
