@@ -153,7 +153,7 @@ void CompareID(long NumID, long NumGID)
 {
     if (NumID == 0)
     {
-        cout << "Your ID is wrong, cannot compare" << endl; // Input ID是錯的
+        cout << "Your ID is wrong, cannot compare." << endl; // Input ID是錯的
     }
     else
     {
