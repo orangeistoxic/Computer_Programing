@@ -7,7 +7,7 @@ int main(){
 
     class Point{
         public:
-        Point(float x=0,float y=0){
+        Point(float x=1,float y=1){
             X=x;
             Y=y;
         }
@@ -23,7 +23,7 @@ int main(){
     
     class Triangle{
         public:
-        Point defaultPoint;
+
         Triangle()=default;
         Triangle(Point one,Point two,Point three){
             A=one;
@@ -85,12 +85,5 @@ int main(){
         float SurfaceArea;
         float Volume;
     };
-
-    Point a,b,c;
-    Triangle t;
-    TriPrism tp;
-
-
-
 
 }
